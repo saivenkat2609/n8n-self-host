@@ -1,7 +1,10 @@
-# Use the official n8n image as base
 FROM n8nio/n8n
 
-# Install ffmpeg
-RUN apt-get update && \
-    apt-get install -y ffmpeg && \
-    apt-get clean
+# Install ffmpeg on Alpine using apk
+USER root
+
+RUN apk update && \
+    apk add --no-cache ffmpeg
+
+# Switch back to default n8n user
+USER node

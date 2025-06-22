@@ -1,10 +1,12 @@
 FROM n8nio/n8n
 
-# Install ffmpeg on Alpine using apk
+# Switch to root to install dependencies
 USER root
 
+# Install ffmpeg and yt-dlp
 RUN apk update && \
-    apk add --no-cache ffmpeg
+    apk add --no-cache ffmpeg curl python3 py3-pip && \
+    pip3 install yt-dlp
 
-# Switch back to default n8n user
+# Switch back to the default n8n user
 USER node

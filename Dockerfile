@@ -1,15 +1,10 @@
-FROM n8nio/n8n
+FROM n8nio/n8n:1.98.2
 
-# Switch to root to install packages
+# Install Python and yt-dlp
 USER root
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    pip3 install yt-dlp && \
+    apt-get clean
 
-# Install ffmpeg and curl
-RUN apk update && \
-    apk add --no-cache ffmpeg curl
-
-# Download yt-dlp binary
-RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp && \
-    chmod a+rx /usr/local/bin/yt-dlp
-
-# Switch back to node user
 USER node
